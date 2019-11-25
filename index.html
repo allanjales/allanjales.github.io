@@ -181,7 +181,7 @@ var game;														//Objeto que carregará o intervalo do gamespeed
 const grid = document.getElementById("canvas").width/celulas;	//Quantidade de pixels nas células da grade
 
 //Objeto para controlar quais logs são exibidos
-var objLog = {
+var log = {
 	gameStart: true,
 	gameEnd: true,
 	appleEaten: true,
@@ -299,7 +299,7 @@ function moveDirection(newDirection)
 		direcao = newDirection;
 		
 		//Log
-		if (objLog['Comands'])
+		if (log['Comands'])
 			switch(direcao)
 			{
 				case 0:
@@ -355,7 +355,7 @@ function iniciarJogo()
     atualizarContador();
 	
 	//Log
-	if (objLog['gameStart'])
+	if (log['gameStart'])
 		console.log('Game: start');
 }
 
@@ -398,7 +398,7 @@ function wavefront()
 	}
 	
 	//Log
-	if (objLog['minWavefront'])
+	if (log['minWavefront'])
 		console.log(menor)
 	
 	//Subtitui todo mundo pela diferença com o menor valor
@@ -512,7 +512,7 @@ function aiDecision()
 	lados[3] = (y < grid - 1) ? matrix[x][y+1] : matrix[x][0];
 	
 	//Log
-	if (objLog['sidesHeat'])
+	if (log['sidesHeat'])
 		console.log(lados)
 	
 	//Direção padrão
@@ -542,7 +542,7 @@ function aiDecision()
 	if (acceptedMoves[key]())
 	{
 		//Log
-		if (objLog['iaPressedKey'])
+		if (log['iaPressedKey'])
 			console.log("Pressed: " + key)
 	}
 }
@@ -565,7 +565,7 @@ function step()
 	if (y > canvas.height/grid-1) {y = 0;}
 	
 	//Log
-	if (objLog['currentPosition'])
+	if (log['currentPosition'])
 		console.log([x,y]);
 	
 	//Limita o tamanho da cobra excluindo sempre o último array
@@ -578,7 +578,7 @@ function step()
         if (x == snake[i].x && y == snake[i].y)
         {
 			//Log
-			if (objLog['gameEnd'])
+			if (log['gameEnd'])
 				console.log('Game: end');
 			
             //Atualiza o score máximo
@@ -604,7 +604,7 @@ function step()
         respawn_comida();		//Respawna
 		
 		//Log
-		if (objLog['appleEaten'])
+		if (log['appleEaten'])
 			console.log('Game: apple eaten | size '.concat(tamanho));
 	}
 	
