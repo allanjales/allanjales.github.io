@@ -185,7 +185,7 @@ var log = {
 	gameStart: true,
 	gameEnd: true,
 	appleEaten: true,
-	Comands: true,
+	Comands: false,
 	minWavefront: false,
 	sidesHeat: false,
 	iapressedKey: false,
@@ -579,7 +579,7 @@ function step()
         {
 			//Log
 			if (log['gameEnd'])
-				console.log('Game: end');
+				console.log('Game: end => score '.concat(score));
 			
             //Atualiza o score máximo
             if (best_score < score)
