@@ -175,7 +175,7 @@ var tamanho;													//Tamanho inicial da cobra
 var score;														//Pontuação do jogador
 var comida_x, comida_y;											//Posição inicial x e y da comida
 var ultima_direcao;												//Variável para evitar bugs de teclas num intervalo muito curto de tempo
-var matrix;														//Matriz para o algoritmo de wavefront	
+var matrixHeat;												//Matriz para o algoritmo de wavefront	
 var menor;														//O menor valor encontrado na matriz acima de 0
 var game;														//Objeto que carregará o intervalo do gamespeed
 var scores = [];												//Scores salvas
@@ -363,33 +363,33 @@ function iniciarJogo()
 //Wavefront
 function wavefront()
 {
-	//Define a matriz é um array
-	matrix = [];
+	//Define que a matriz é um array
+	matrixHeat = [];
 	
 	//Passa por cada célula horizontal
 	for (var i = 0; i < grid; i++)
     {
 		//Define que o array também é um array
-		matrix[i] = [];
+		matrixHeat[i] = [];
 		
 		//Passa por cada célula vertical
 		for (var j = 0; j < grid; j++)
 		{
 			//Define como 0
-			matrix[i][j] = 0;
+			matrixHeat[i][j] = 0;
 		}
 	}
 	
 	//Dá calor a comida
-	matrix[comida_x][comida_y] = Math.round(grid*grid);
+	matrixHeat[comida_x][comida_y] = Math.round(grid*grid);
 	
 	//Menor valor encontrado na matriz acima de 0 inicialmente é o da comida
-	menor = matrix[comida_x][comida_y];
+	menor = matrixHeat[comida_x][comida_y];
 
 	//Marca a posição do corpo da cobra com -1
 	for (var i = 0; i < snake.length; i++)
 	{
-		matrix[snake[i].x][snake[i].y] = -1;
+		matrixHeat[snake[i].x][snake[i].y] = -1;
 	}
 
 	//Faz o mapa de calor do resto (verifica as adjacencias)
@@ -407,9 +407,9 @@ function wavefront()
 	{
 		for (var j = 0; j < grid; j++)
 		{
-			if (matrix[i][j] >= menor)
+			if (matrixHeat[i][j] >= menor)
 			{
-				matrix[i][j] = matrix[i][j] - menor;
+				matrixHeat[i][j] = matrixHeat[i][j] - menor;
 			}
 		}
 	}
@@ -419,7 +419,7 @@ function wavefront()
 function verificarAdjacencias()
 {
 	//Matriz antes
-	antes = JSON.stringify(matrix);
+	antes = JSON.stringify(matrixHeat);
 
 	//Passa por cada célula horizontal
 	for (var i = 0; i < grid; i++)
@@ -428,68 +428,68 @@ function verificarAdjacencias()
 		for (var j = 0; j < grid; j++)
 		{
 			//Se a célula não for parte da cobra
-			if (matrix[i][j] >= 0)
+			if (matrixHeat[i][j] >= 0)
 			{
 				//Se nas adjacencias tem alguma célula mais quente
-				if (i < grid - 1 && matrix[i+1][j] > matrix[i][j])
+				if (i < grid - 1 && matrixHeat[i+1][j] > matrixHeat[i][j])
 				{
-					matrix[i][j] = matrix[i+1][j] - 1;
+					matrixHeat[i][j] = matrixHeat[i+1][j] - 1;
 				}
 
-				if (j < grid - 1 && matrix[i][j+1] > matrix[i][j])
+				if (j < grid - 1 && matrixHeat[i][j+1] > matrixHeat[i][j])
 				{
-					matrix[i][j] = matrix[i][j+1] - 1;
+					matrixHeat[i][j] = matrixHeat[i][j+1] - 1;
 				}
 
-				if (i > 0 && matrix[i-1][j] > matrix[i][j])
+				if (i > 0 && matrixHeat[i-1][j] > matrixHeat[i][j])
 				{
-					matrix[i][j] = matrix[i-1][j] - 1;
+					matrixHeat[i][j] = matrixHeat[i-1][j] - 1;
 				}
 
-				if (j > 0 && matrix[i][j-1] > matrix[i][j])
+				if (j > 0 && matrixHeat[i][j-1] > matrixHeat[i][j])
 				{
-					matrix[i][j] = matrix[i][j-1] - 1;
+					matrixHeat[i][j] = matrixHeat[i][j-1] - 1;
 				}
 
 				//Verifica do outro lado também
-				if (i == grid - 1 && matrix[0][j] > matrix[i][j])
+				if (i == grid - 1 && matrixHeat[0][j] > matrixHeat[i][j])
 				{
-					matrix[i][j] = matrix[0][j] - 1;
+					matrixHeat[i][j] = matrixHeat[0][j] - 1;
 				}
 
-				if (j == grid - 1 && matrix[i][0] > matrix[i][j])
+				if (j == grid - 1 && matrixHeat[i][0] > matrixHeat[i][j])
 				{
-					matrix[i][j] = matrix[i][0] - 1;
+					matrixHeat[i][j] = matrixHeat[i][0] - 1;
 				}
 
-				if (i == 0 && matrix[grid - 1][j] > matrix[i][j])
+				if (i == 0 && matrixHeat[grid - 1][j] > matrixHeat[i][j])
 				{
-					matrix[i][j] = matrix[grid - 1][j] - 1;
+					matrixHeat[i][j] = matrixHeat[grid - 1][j] - 1;
 				}
 
-				if (j == 0 && matrix[i][grid - 1] > matrix[i][j])
+				if (j == 0 && matrixHeat[i][grid - 1] > matrixHeat[i][j])
 				{
-					matrix[i][j] = matrix[i][grid - 1] - 1;
+					matrixHeat[i][j] = matrixHeat[i][grid - 1] - 1;
 				}
 				
 				//Se for o menor valor encontrado salva ele
-				if (menor > matrix[i][j] && matrix[i][j] > 0)
+				if (menor > matrixHeat[i][j] && matrixHeat[i][j] > 0)
 				{
-					menor = matrix[i][j];
+					menor = matrixHeat[i][j];
 				}
 			}
 		}
 	}
 	
 	//Retorna true se modificou alguma coisa e false se não
-	if (antes == JSON.stringify(matrix))
+	if (antes == JSON.stringify(matrixHeat))
 	{
 		return false
 	}
 	else
 	{	
 		//Se modificou, reseta o menor valor
-		menor = matrix[comida_x][comida_y];
+		menor = matrixHeat[comida_x][comida_y];
 		
 		return true
 	}
@@ -507,13 +507,13 @@ function aiDecision()
 		//Verifica qual lado tem menos calor ao redor da cobra
 
 		//Define lados como array
-		lados = [];
+		var lados = [];
 
 		//Assimila os lados
-		lados[0] = (x > 0) ? matrix[x-1][y] : matrix[grid - 1][y];
-		lados[1] = (y > 0) ? matrix[x][y-1] : matrix[x][grid - 1];
-		lados[2] = (x < grid - 1) ? matrix[x+1][y] : matrix[0][y];
-		lados[3] = (y < grid - 1) ? matrix[x][y+1] : matrix[x][0];
+		lados[0] = (x > 0) ? matrixHeat[x-1][y] : matrixHeat[grid - 1][y];
+		lados[1] = (y > 0) ? matrixHeat[x][y-1] : matrixHeat[x][grid - 1];
+		lados[2] = (x < grid - 1) ? matrixHeat[x+1][y] : matrixHeat[0][y];
+		lados[3] = (y < grid - 1) ? matrixHeat[x][y+1] : matrixHeat[x][0];
 
 		//Log
 		if (log['sidesHeat'])
@@ -690,7 +690,7 @@ function draw()
 	ctx.fillRect(comida_x*grid, comida_y*grid, grid-1, grid-1)
 	
 	//Se tá definido a matriz
-	if (matrix && ia && debug)
+	if (matrixHeat && ia && debug)
 	{
 		//Wavefront algorithm
 		ctx.font = "10px Arial";
@@ -698,16 +698,16 @@ function draw()
 		ctx.fillStyle = "#ffffff";
 	
 		//Passa por cada célula horizontal
-		for (var i = 0; i < matrix.length; i++)
+		for (var i = 0; i < matrixHeat.length; i++)
 		{
 			//Passa por cada célula vertical
-			for (var j = 0; j < matrix[i].length; j++)
+			for (var j = 0; j < matrixHeat[i].length; j++)
 			{
 				//Define cores
-				ctx.fillStyle = "#ff" + Math.round(matrix[i][j]/matrix[comida_x][comida_y]*255).toString(16).padStart(2,0) + Math.round(matrix[i][j]/matrix[comida_x][comida_y]*255).toString(16).padStart(2,0);
+				ctx.fillStyle = "#ff" + Math.round(matrixHeat[i][j]/matrixHeat[comida_x][comida_y]*255).toString(16).padStart(2,0) + Math.round(matrixHeat[i][j]/matrixHeat[comida_x][comida_y]*255).toString(16).padStart(2,0);
 				
 				//Exibe quantidade
-				ctx.fillText(matrix[i][j], i*grid + grid/2 - 1, (j + 1)*grid - grid/4 - 2);
+				ctx.fillText(matrixHeat[i][j], i*grid + grid/2 - 1, (j + 1)*grid - grid/4 - 2);
 			}
 		}
 	}
