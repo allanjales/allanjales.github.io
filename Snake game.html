@@ -157,6 +157,7 @@ body{
         <div id="botao-menor" class="botao" onClick="debugButton(this)" title="Debug na inteligência artificial">
             <div class="botao"></div>
         </div>
+		<p id="fps" class="texto" style="margin-left: 15px"></p>
     </div>
 </body>
 </html>
@@ -192,6 +193,17 @@ var log = {
 	iapressedKey: false,
 	currentPosition: false,
 }
+
+//FPS vars
+var frameTime = 0;
+var lastLoop = new Date
+var thisLoop;
+
+//Seleciona o objeto de FPS
+const fpsOut = document.getElementById('fps');
+
+//Atualiza o FPS a cada meio segundo (500 ms)
+setInterval(function() {fpsOut.innerHTML = (1000/frameTime).toFixed(0) + " blocks/s";}, 500);
 
 //Função de debug
 function toggleIAButton(button)
@@ -665,6 +677,11 @@ function step()
 		//Faz ela escolher uma ação
 		aiDecision();
 	}
+		
+	//FPS JS
+	thisLoop = new Date;
+	frameTime = thisLoop - lastLoop;
+	lastLoop = thisLoop;
 }
 
 //Função draw de jogo
