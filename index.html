@@ -1,13 +1,116 @@
-﻿<!doctype html>
+<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>Home</title>
-<meta name="author" content="Allan Jales">
-<meta name="theme-color" content="#ffffff">
-<meta http-equiv="refresh" content="0; URL='Snake game.html'"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Allan Jales</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<style>
+body{
+	margin: 0;
+}
+
+.material-icons{
+	vertical-align: text-bottom;
+	}
+	
+.img-responsive{
+    display: block;
+    height: 0;
+    padding-bottom: 56.25%;
+    overflow: hidden;
+	box-sizing: border-box;
+	}
+
+.item{
+	min-width: 200px;
+	}
+	
+.items{
+	margin: auto;
+	}
+
+@media (max-width: 992px){
+/*.items{max-width: 600px;}*/
+.item{min-width: 33.33%}
+}
+
+@media (max-width: 768px){
+/*.items{max-width: 400px;}*/
+.item{min-width: 50%}
+}
+
+@media (max-width: 246px){
+.item{min-width: 100%;}
+}
+
+.host{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	/*direction: rtl;*/
+}
+
+</style>
+
 </head>
+
 <body>
-	<a href="Snake game.html">Snake Game</a>
+<main>
+	<div class="jumbotron text-center">
+		<div class="container">
+			<h1>Bem-vindo ao meu github.io!</h1>
+			<p>Iniciante na área de física nuclear de altas energias, faço outros trabalhos de hobby. Segue alguns dos meus passa-tempos abaixo.</p>
+			<p><a class="btn btn-primary btn-lg" href="#items" role="button">Veja abaixo »</a></p>
+		</div>
+	</div>
+	<div id="items" class="container">
+		<div class="d-flex flex-wrap items">
+			<div class="col-4 p-2 item">
+				<div class="card h-100 border-0">
+					<div class="img-responsive">
+						<a href="Snake game.html">
+							<img class="card-img-top" src="http://www.datagenetics.com/blog/april42013/s.jpg" alt="Snake Game">
+						</a>
+					</div>
+					<p class="card-title text-center pr-3 pl-3">
+						<a href="Snake game.html">Snake Game</a>
+					</p>
+				</div>
+			</div>
+			<div class="col-4 p-2 item">
+				<div class="card h-100 border-0">
+					<div class="img-responsive">
+						<a href="Minesweeper.html">
+							<img class="card-img-top" src="https://moneyinc.com/wp-content/uploads/2018/12/Minesweeper-750x464.jpg" alt="Snake Game">
+						</a>
+					</div>
+					<p class="card-title text-center pr-3 pl-3">
+						<a href="Minesweeper.html">Minesweeper</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
 </body>
 </html>
+
+<script>
+	$('a[href^="#"]').on('click', function(event) {
+
+		var target = $(this.getAttribute('href'));
+
+		if( target.length ) {
+			event.preventDefault();
+			$('html, body').stop().animate({
+				scrollTop: (target.offset().top)-58 //SUBTRAIR AQUI A ALTURA DO MENU
+			}, 1000);
+		}
+
+	});
+</script>
