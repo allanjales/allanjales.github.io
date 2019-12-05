@@ -140,6 +140,18 @@ body{
 	padding: 2px;
 }
 
+#credits{
+	margin-top: 15px;
+}
+
+.text2{
+	color: #00000;
+	text-align: center;
+	font-family: sans-serif;
+	margin-top: 2px;
+	margin-bottom: 0;
+}
+
 </style>
 </head>
 
@@ -147,8 +159,10 @@ body{
 <div id="gamepad" class="outset">
 	<div id="header" class="inset">
 		<div id="timer" class="display inset" onClick="aiDecision()">0</div>
-		<div id="restart-button" class="outset" onClick="startGame()">
-			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 106.059 106.059"><g><path fill="#000000" d="M90.546,15.518C69.858-5.172,36.199-5.172,15.515,15.513C-5.173,36.198-5.171,69.858,15.517,90.547c20.682,20.684,54.341,20.684,75.027-0.004C111.23,69.858,111.229,36.2,90.546,15.518z M84.757,84.758c-17.494,17.494-45.96,17.496-63.455,0.002c-17.498-17.497-17.496-45.966,0-63.46C38.796,3.807,67.261,3.805,84.759,21.302C102.253,38.796,102.251,67.265,84.757,84.758z M33.24,38.671c0-3.424,2.777-6.201,6.201-6.201c3.423,0,6.2,2.776,6.2,6.201c0,3.426-2.777,6.202-6.2,6.202C36.017,44.873,33.24,42.097,33.24,38.671z M61.357,38.671c0-3.424,2.779-6.201,6.203-6.201c3.423,0,6.2,2.776,6.2,6.201c0,3.426-2.776,6.202-6.2,6.202S61.357,42.097,61.357,38.671z M76.017,64.068c-3.843,8.887-12.843,14.629-22.927,14.629c-10.301,0-19.354-5.771-23.064-14.703c-0.636-1.529,0.089-3.285,1.62-3.921c0.376-0.155,0.766-0.229,1.15-0.229c1.176,0,2.292,0.695,2.771,1.85c2.777,6.686,9.655,11.004,17.523,11.004c7.69,0,14.528-4.321,17.42-11.011c0.658-1.521,2.424-2.222,3.944-1.563S76.675,62.548,76.017,64.068z"/></g></svg>
+		<div>
+			<div id="restart-button" class="outset" onClick="startGame()">
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 106.059 106.059"><g><path fill="#000000" d="M90.546,15.518C69.858-5.172,36.199-5.172,15.515,15.513C-5.173,36.198-5.171,69.858,15.517,90.547c20.682,20.684,54.341,20.684,75.027-0.004C111.23,69.858,111.229,36.2,90.546,15.518z M84.757,84.758c-17.494,17.494-45.96,17.496-63.455,0.002c-17.498-17.497-17.496-45.966,0-63.46C38.796,3.807,67.261,3.805,84.759,21.302C102.253,38.796,102.251,67.265,84.757,84.758z M33.24,38.671c0-3.424,2.777-6.201,6.201-6.201c3.423,0,6.2,2.776,6.2,6.201c0,3.426-2.777,6.202-6.2,6.202C36.017,44.873,33.24,42.097,33.24,38.671z M61.357,38.671c0-3.424,2.779-6.201,6.203-6.201c3.423,0,6.2,2.776,6.2,6.201c0,3.426-2.776,6.202-6.2,6.202S61.357,42.097,61.357,38.671z M76.017,64.068c-3.843,8.887-12.843,14.629-22.927,14.629c-10.301,0-19.354-5.771-23.064-14.703c-0.636-1.529,0.089-3.285,1.62-3.921c0.376-0.155,0.766-0.229,1.15-0.229c1.176,0,2.292,0.695,2.771,1.85c2.777,6.686,9.655,11.004,17.523,11.004c7.69,0,14.528-4.321,17.42-11.011c0.658-1.521,2.424-2.222,3.944-1.563S76.675,62.548,76.017,64.068z"/></g></svg>
+			</div>
 		</div>
 		<div id="remaining-flags" class="display inset">0</div>
 	</div>
@@ -166,6 +180,8 @@ body{
 			</div>
 		</div>
 	</div>
+	<p id="credits" class="text2"><b>By Allan Jales</b></p>
+	<p class="text2">Press Space to AI move</p>
 </div>
 </body>
 </html>
@@ -210,6 +226,9 @@ window.onload = function()
 	{
 		game[i] = [];
 	}
+	
+	//Handle Keydown for IA controls
+	document.addEventListener("keydown", handleKeydown);
 	
 	//Start the game
 	startGame();
@@ -276,7 +295,6 @@ function placeBombs(x = undefined, y = undefined)
 			list.push({x: i, y: j})
 		}
 	}
-	console.log(list)
 	
 	//If positions are defined
 	if (x && y)
@@ -549,9 +567,6 @@ function draw()
 			//Set the element
 			var element = document.createElement('td');
 			
-			//Add id to the element
-			//element.id = i.toString() + '-' + j.toString();
-			
 			//Set position as attribute in element
 			element.setAttribute('x', i);
 			element.setAttribute('y', j);
@@ -666,8 +681,8 @@ function handleLeftClick(selected)
 			//Stop timer
 			clearInterval(timer);
 			
-			//Log
-			console.log('ganhou!');
+			//Define as wonned game
+			wonned = true;
 	
 			//Show gameover screen
 			document.getElementById('gameover-screen').style.display = 'flex';
@@ -709,6 +724,29 @@ function handleRightClick(selected)
 
 <script>
 
+//Handle keydown
+function handleKeydown(event)
+{
+	//Select the key function
+	const keyFunction = acceptedKeysCode[event.code]
+	
+	//If is accepted key
+	if (keyFunction)
+	{
+		//Treats like function
+		keyFunction();
+	}
+}
+
+//Accepted keys function
+const acceptedKeysCode = 
+{
+	Space()
+	{
+		aiDecision()
+	}
+}
+
 //AI choose what to do
 function aiDecision()
 {
@@ -717,42 +755,187 @@ function aiDecision()
 	{
 		//Restart game
 		startGame();
-		
-		//Stops function
-		return;
 	}
 	else
 	{
-		//List of all covered points
-		var list = [];
-
-		//Fills the list
-		for (var i = 0; i < rows; i++)
+		//Get what should flag
+		shouldFlag = whichShouldIFlag();
+		
+		//If point exists
+		if (shouldFlag)
 		{
-			for (var j = 0; j < cols; j++)
-			{
-				//If is covered
-				if (game[i][j].isCovered === true)
-				{
-					//Add to the list
-					list.push({x: i, y: j})
-				}
-			}
+			//Right clicks on it
+			aiClick(shouldFlag.x, shouldFlag.y, false)
+			
+			//Break function
+			return true;
 		}
-
-		//Get random point from the list
-		var point = list[Math.floor(Math.random()*list.length)];
-		var x = point.x;
-		var y = point.y;
-
-		//Get the element in those coordinates
-		var element = document.querySelector('[x="' + x.toString() + '"][y="' + y.toString() + '"]');
-
-		//Left click in picked point
-		handleLeftClick(element);
+		
+		//Get what should flag
+		shouldClick = whichShouldIClick();
+		
+		//If point exists
+		if (shouldClick)
+		{
+			//Right clicks on it
+			aiClick(shouldClick.x, shouldClick.y, true)
+			
+			//Break function
+			return true;
+		}
+		
+		aiRandomLeftClick();
+		
 	}
 }
 
-//
+
+//Random Left Click
+function aiRandomLeftClick()
+{
+	//List of all covered points
+	var list = [];
+
+	//Fills the list
+	for (var i = 0; i < rows; i++)
+	{
+		for (var j = 0; j < cols; j++)
+		{
+			//If is covered
+			if (game[i][j].isCovered === true && game[i][j].isFlagged === false)
+			{
+				//Add to the list
+				list.push({x: i, y: j})
+			}
+		}
+	}
+
+	//Get random point from the list
+	var point = list[Math.floor(Math.random()*list.length)];
+	var x = point.x;
+	var y = point.y;
+
+	//Left click in picked point
+	aiClick(x, y, true);
+}
+
+
+//Returns squares around with this property value
+function findSquaresAround(x, y, property, value)
+{
+	//Covered squares around
+	var squares = [];
+	
+	//For each position around
+	for (var i = -1; i <= 1; i++)
+	{
+		for (var j = -1; j <= 1; j++)
+		{
+			//If this position exists and it is not itself
+			if (game[x+i] && game[x+i][y+j] && !(i == 0 && j == 0))
+			{				
+				//If property matchs
+				if (game[x+i][y+j][property] === value)
+				{
+					//Add to the list
+					squares.push({x: x+i, y: y+j})
+				}
+			}
+		}
+	}
+	
+	//Returns squares around
+	return squares;
+}
+
+//Get one point which it show flag
+function whichShouldIFlag()
+{
+	//For each position in the table
+	for (var i = 0; i < rows; i++)
+	{
+		for (var j = 0; j < cols; j++)
+		{
+			//If is not covered and is a number
+			if (game[i][j].isCovered === false && game[i][j].whatHiddens > 0)
+			{
+				//Returns how many blocks are covered around
+				var coveredSquaresAround = findSquaresAround(i, j, 'isCovered', true);
+				
+				//If there is same amount of bombs around as covered squares
+				if (game[i][j].whatHiddens == coveredSquaresAround.length)
+				{
+					//Pass through each choosen square
+					for (var k = 0; k < coveredSquaresAround.length; k++)
+					{
+						//If the block is not flagged, returns it
+						if (game[coveredSquaresAround[k].x][coveredSquaresAround[k].y].isFlagged === false)
+							return coveredSquaresAround[k];
+					}
+				}
+			}
+		}
+	}
+	
+	//If is not found
+	return undefined;
+}
+
+
+//Get one point which it show flag
+function whichShouldIClick()
+{
+	//For each position in the table
+	for (var i = 0; i < rows; i++)
+	{
+		for (var j = 0; j < cols; j++)
+		{
+			//If is not covered and is a number
+			if (game[i][j].isCovered === false && game[i][j].whatHiddens > 0)
+			{
+				//Returns how many blocks are covered and flagged around
+				var coveredSquaresAround = findSquaresAround(i, j, 'isCovered', true);
+				var flaggedSquaresAround = findSquaresAround(i, j, 'isFlagged', true);
+				
+				//If there is same amount of bombs around as flagged squares
+				if (game[i][j].whatHiddens == flaggedSquaresAround.length)
+				{
+					//Pass through each choosen block
+					for (var k = 0; k < coveredSquaresAround.length; k++)
+					{
+						//If the block is not flagged, returns it
+						if (game[coveredSquaresAround[k].x][coveredSquaresAround[k].y].isFlagged === false)
+							return coveredSquaresAround[k];
+					}
+				}
+			}
+		}
+	}
+	
+	//If is not found
+	return undefined;
+}
+
+function aiClick(x, y, isLeft = true)
+{
+	//Get the element in those coordinates
+	var element = document.querySelector('[x="' + x.toString() + '"][y="' + y.toString() + '"]');
+
+	if (isLeft === true)
+	{
+		//Left click in picked element
+		handleLeftClick(element);
+		return true;
+	}
+	else
+	{
+		//Right click in picked element
+		handleRightClick(element);
+		return true;
+	}
+	
+	//If could not
+	return false;
+}
 
 </script>
