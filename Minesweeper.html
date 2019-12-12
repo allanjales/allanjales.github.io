@@ -196,7 +196,6 @@ var beginTime;			//Begin time of current game
 var timer;				//Interval of calling update timer function
 var wonned;				//Null = not known, false = loose, true = won
 var areBombsPlaced;		//To place bombs only on the first click
-var ai = true;
 
 //const imgForLetters = false;	//If should only show letters
 
@@ -212,8 +211,9 @@ const colors = {
 	8: '#808080',
 }
 
-var game;			//Variable of game matrix
-var map;			//Variable for temporary game matrix
+var game;				//Variable of game matrix
+var map;				//Variable for temporary game matrix
+var previusGames = [];	//Variable of previus states of game
 
 //On load function
 window.onload = function()
@@ -652,10 +652,7 @@ function handleLeftClick(selected)
 	
 	//If square is unflagged
 	if (game[x][y].isFlagged === false && game[x][y].isCovered)
-	{
-		//Uncover the selected element
-		game[x][y].isCovered = false;
-		
+	{	
 		//If bombs are not placed
 		if (areBombsPlaced === false)
 		{
@@ -665,6 +662,12 @@ function handleLeftClick(selected)
 			//Place bombs in the table
 			placeBombs(x, y);
 		}
+
+		//Saves atual states of game
+		saveState();
+
+		//Uncover the selected element
+		game[x][y].isCovered = false;
 		
 		//Redraw whole table
 		draw();
@@ -692,6 +695,9 @@ function handleLeftClick(selected)
 
 function handleRightClick(selected)
 {
+	//Saves atual states of game
+	saveState();
+
 	//Get Position of clicked object
 	var x = selected.getAttribute('x');
 	var y = selected.getAttribute('y');
@@ -728,7 +734,7 @@ function handleRightClick(selected)
 function handleKeydown(event)
 {
 	//Select the key function
-	const keyFunction = acceptedKeysCode[event.code]
+	const keyFunction = acceptedKeysCode[event.code];
 	
 	//If is accepted key
 	if (keyFunction)
@@ -743,7 +749,11 @@ const acceptedKeysCode =
 {
 	Space()
 	{
-		aiDecision()
+		aiDecision();
+	},
+	Backspace()
+	{
+		undo();
 	}
 }
 
@@ -916,6 +926,7 @@ function whichShouldIClick()
 	return undefined;
 }
 
+//Act likes a player click
 function aiClick(x, y, isLeft = true)
 {
 	//Get the element in those coordinates
@@ -936,6 +947,42 @@ function aiClick(x, y, isLeft = true)
 	
 	//If could not
 	return false;
+}
+
+//Undo move
+function undo()
+{
+	//If exists any game before
+	if (previusGames.length > 0)
+	{
+		//Update all game matrix
+		game = JSON.parse(previusGames[0]);
+
+		//Remove one of begging the array
+		previusGames.shift();
+
+		//Redraw screen
+		draw();
+
+		//Return true then
+		return true;
+	}
+
+	//If couldn't
+	return false;
+}
+
+//Saves atual state of game
+function saveState()
+{
+	//Maximum states saved
+	const maxGames = 150;
+
+	//Add in begining of array atual game
+	previusGames.unshift(JSON.stringify(game));
+
+	//Limits the size of previus states removing the end of list
+	while (previusGames.length > maxGames-1) {previusGames.pop();}
 }
 
 </script>
