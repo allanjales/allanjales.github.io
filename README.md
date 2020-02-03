@@ -1,3 +1,3 @@
 # Welcome to my repository
 
-[Snake Game](Snake game.html)
+[Github.io](allanjales.github.io)
