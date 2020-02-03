@@ -1,1 +1,3 @@
-# [Welcome to my repository](https://allanjales.github.io/)
+# Welcome to my repository
+
+[Github.io](https://allanjales.github.io/)
