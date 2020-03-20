@@ -3,147 +3,218 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Allan Jales https://github.com/allanjales/">
 <title>Allan Jales</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <style>
-body{
-	margin: 0;
+
+.octicon {
+    display: inline-block;
+    fill: currentColor;
 }
 
-.material-icons{
-	vertical-align: text-bottom;
-	}
-	
-.img-responsive{
-    display: block;
-    height: 0;
-    padding-bottom: 56.25%;
-    overflow: hidden;
-	box-sizing: border-box;
-	}
+.bg-black {
+    background-color: #000000 !important;
+}
 
-.item{
-	min-width: 200px;
-	}
-	
-.items{
-	margin: auto;
-	}
+.bg-light-dark {
+    background-color: #2a2a2a !important;
+}
 
-@media (max-width: 992px){
-/*.items{max-width: 600px;}*/
-.item{min-width: 33.33%}
+.bg-dark {
+    background-color: #1c1c1c !important;
+}
+
+.fitimage{
+	object-fit: cover;
+	object-position: center;
+}
+
+.rounded-project{
+	border-radius: 10px;
+}
+
+.ver-projeto-holder{
+	bottom: 5%;
 }
 
 @media (max-width: 768px){
-/*.items{max-width: 400px;}*/
-.item{min-width: 50%}
+	#main-container{
+		padding-left: 2rem !important;
+		padding-right: 2rem !important;
+	}
 }
 
-@media (max-width: 246px){
-.item{min-width: 100%;}
+@media (min-width: 768px){
+	nav{
+		position: -webkit-sticky !important;
+		position: sticky !important;
+		top: 0;
+		z-index: 10000;
+	}
 }
 
-.host{
-	overflow: hidden;
-	text-overflow: ellipsis;
-	/*direction: rtl;*/
-}
-
-.border-img{
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: .25rem;
+@media (max-width: 425px){
+	#main-container{
+		padding-left: 1rem !important;
+		padding-right: 1rem !important;
+	}
 }
 
 </style>
-
 </head>
 
-<body>
-<main>
-	<div class="jumbotron text-center">
-		<div class="container">
-			<h1>Bem-vindo ao meu github.io!</h1>
-			<p>Iniciante na área de física nuclear de altas energias, faço outros trabalhos de hobby. Segue alguns dos meus passa-tempos abaixo.</p>
-			<p><a class="btn btn-primary btn-lg" href="https://github.com/allanjales/" role="button">Ver github »</a></p>
-		</div>
-	</div>
-	<div id="items" class="container">
-		<h1 class="mt-3">Jogos</h1>
-		<div class="d-flex flex-wrap items">
-			<div class="col-4 p-2 item">
-				<div class="card h-100 border-0">
-					<div class="img-responsive">
-						<a href="snake-game/Snake game.html">
-							<img class="card-img-top border-img" src="imgs/snake-game.png" alt="Snake Game">
+<body class="bg-light-dark text-white">
+	<nav class="navbar navbar-expand bg-black navbar-dark">
+		<div class="container flex-wrap">
+			<a class="navbar-brand" href="/">Allan Jales</a>
+			<div class="justify-content-end">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link pl-0" target="_blank" href="mailto:jales.allan@gmail.com">jales.allan@gmail.com</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link p-1" href="https://github.com/allanjales">
+							<svg class="octicon octicon-mark-github" height="32" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true">
+								<path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+							</svg>
 						</a>
-					</div>
-					<p class="card-title text-center pr-3 pl-3">
-						<a href="snake-game/Snake game.html">Snake Game</a>
-					</p>
-				</div>
-			</div>
-			<div class="col-4 p-2 item">
-				<div class="card h-100 border-0">
-					<div class="img-responsive">
-						<a href="minesweeper/Minesweeper.html">
-							<img class="card-img-top border-img" src="imgs/minesweeper.png" alt="Snake Game">
-						</a>
-					</div>
-					<p class="card-title text-center pr-3 pl-3">
-						<a href="minesweeper/Minesweeper.html">Minesweeper</a>
-					</p>
-				</div>
+					</li>
+				</ul>
 			</div>
 		</div>
-		<h1 class="mt-3">Sites</h1>
-		<div class="d-flex flex-wrap items">
-			<div class="col-4 p-2 item">
-				<div class="card h-100 border-0">
-					<div class="img-responsive">
-						<a href="proeminente">
-							<img class="card-img-top border-img" src="imgs/proeminente.png" alt="Proeminente">
-						</a>
+	</nav>
+	<main>
+		<div id="main-container" class="container bg-dark p-5" style="min-height: calc(100vh - 56px);">
+			<div class="card mb-5 bg-dark border-0">
+				<div class="row no-gutters">
+					<div class="col-md-2">
+						<div class="embed-responsive embed-responsive-1by1">
+							<img class="card-img fitimage rounded-circle embed-responsive-item" src="https://avatars3.githubusercontent.com/u/30681577" alt="Minha imagem">
+						</div>
 					</div>
-					<p class="card-title text-center pr-3 pl-3">
-						<a href="proeminente">Proeminente</a>
-					</p>
+					<div class="col-md-10">
+						<div class="card-body">
+							<h5 class="card-title">Bem-vindo ao meu <b>github.io</b>!</h5>
+							<p class="card-text text-justify">Iniciante na área de física nuclear de altas energias, faço outros trabalhos de hobby.<br>Segue alguns dos meus passa-tempos abaixo.</p>
+							<!--<a href="https://github.com/allanjales/" class="card-link btn btn-primary">ver github »</a>-->
+							<a href="https://github.com/allanjales/" class="card-link text-muted">ver github »</a>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="col-4 p-2 item">
-				<div class="card h-100 border-0">
-					<div class="img-responsive">
-						<a href="ecopet">
-							<img class="card-img-top border-img" src="imgs/ecopet.png" alt="Proeminente">
-						</a>
+			<h1>Alguns projetos</h1>
+			<h2>Jogos</h2>
+			<div class="card mt-4 mb-3 bg-black border-0 rounded-project">
+				<div class="row no-gutters">
+					<div class="col-lg-3 p-4">
+						<div class="embed-responsive embed-responsive-1by1">
+							<img class="card-img fitimage embed-responsive-item rounded-project" src="imgs/snake-game.png" alt="Imagem do projeto">
+							<div class="position-absolute fixed-bottom d-flex justify-content-center ver-projeto-holder">
+								<a href="/snake-game/Snake%20game.html" class="card-link btn btn-primary">ver projeto »</a>
+							</div>
+						</div>
 					</div>
-					<p class="card-title text-center pr-3 pl-3">
-						<a href="ecopet">Ecopet</a>
-					</p>
+					<div class="col-lg-9">
+						<div class="card-body">
+							<h5 class="card-title">Snake Game</h5>
+							<p class="card-text text-justify mb-2">O maior objetivo deste projeto era criar uma inteligência artificial por mapa de calor que pudesse jogar o clássico jogo da cobra. Nesse projeto é possível também o usuário jogar utilizando as teclas do teclado. Para ativar a inteligência artificial, basta apertar o botão <kbd style="background-color: rgba(255,0,0,0.2);">IA</kbd> e se quiser ver o mapa de calor gerado, basta apertar a luzinha que acende no lado do botão principal (esta função foi feita para debug).</p>
+							<div class="d-flex justify-content-end">
+								<a href="/snake-game/Snake%20game.html" class="card-link text-muted">ver projeto »</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card mt-4 mb-3 bg-black border-0 rounded-project">
+				<div class="row no-gutters">
+					<div class="col-lg-3 p-4">
+						<div class="embed-responsive embed-responsive-1by1">
+							<img class="card-img fitimage embed-responsive-item rounded-project" src="imgs/minesweeper.png" alt="Imagem do projeto">
+							<div class="position-absolute fixed-bottom d-flex justify-content-center ver-projeto-holder">
+								<a href="/minesweeper/Minesweeper.html" class="card-link btn btn-primary">ver projeto »</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-9">
+						<div class="card-body">
+							<h5 class="card-title">Minesweeper</h5>
+							<p class="card-text text-justify mb-2">Assim como no jogo da cobra, o maior objetivo deste projeto foi criar uma inteligência artificial capaz de jogar o clássico jogo Campo Minado. Devido a dificuldade do jogo ela não é capaz de ganhar todos, pois em alguns momentos deve fazer alguma escolha aleatória. O usuário pode jogar também para comparar com a inteligência artificial. Para a inteligência artificial fazer uma jogada, basta apertar <kbd>Espaço</kbd> e para voltar uma jogada basta apertar <kbd>Backspace</kbd>, podendo voltar até 50 jogadas. No canto esquerdo superior é apresentado o tempo de jogo e no canto direito superior a quantidade de minas restantes.</p>
+							<div class="d-flex justify-content-end">
+								<a href="/minesweeper/Minesweeper.html" class="card-link text-muted">ver projeto »</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card mt-4 mb-3 bg-black border-0 rounded-project">
+				<div class="row no-gutters">
+					<div class="col-lg-3 p-4">
+						<div class="embed-responsive embed-responsive-1by1">
+							<img class="card-img fitimage embed-responsive-item rounded-project" src="imgs/earth-3d.png" alt="Imagem do projeto">
+							<div class="position-absolute fixed-bottom d-flex justify-content-center ver-projeto-holder">
+								<a href="/earth-3d/Earth.html" class="card-link btn btn-primary">ver projeto »</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-9">
+						<div class="card-body">
+							<h5 class="card-title">Earth 3D</h5>
+							<p class="card-text text-justify mb-2">O objetivo deste projeto foi tentar recriar um projeto meu antigo de Terra hiperrealista renderizado no programa 3D blender só que desta vez fazê-lo interativo e no browser. Para tal, utilizei a biblioteca Three.js e utlizei texturas em 8K Ultra HD. Utilize o mouse para interagir e aperte <kbd>F</kbd> para deixar em tela cheia.
+							<div class="d-flex justify-content-end">
+								<a href="/earth-3d/Earth.html" class="card-link text-muted">ver projeto »</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<h2 class="pt-3">Sites</h2>
+			<div class="card mt-4 mb-3 bg-black border-0 rounded-project">
+				<div class="row no-gutters">
+					<div class="col-lg-3 p-4">
+						<div class="embed-responsive embed-responsive-1by1">
+							<img class="card-img fitimage embed-responsive-item rounded-project" src="imgs/proeminente.png" alt="Imagem do projeto">
+							<div class="position-absolute fixed-bottom d-flex justify-content-center ver-projeto-holder">
+								<a href="/proeminente" class="card-link btn btn-primary">ver projeto »</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-9">
+						<div class="card-body">
+							<h5 class="card-title">Proeminente</h5>
+							<p class="card-text text-justify mb-2">Este site foi criado para um cantor de rap chamado LIINK. Algumas informações de contato dele não estão censuradas e o formulário que já foi funcional também está parado. O site criado em 2017 foi meu primeiro trabalho como webdesigner.</p>
+							<div class="d-flex justify-content-end">
+								<a href="/proeminente" class="card-link text-muted">ver projeto »</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card mt-4 mb-3 bg-black border-0 rounded-project">
+				<div class="row no-gutters">
+					<div class="col-lg-3 p-4">
+						<div class="embed-responsive embed-responsive-1by1">
+							<img class="card-img fitimage embed-responsive-item rounded-project" src="imgs/ecopet.png" alt="Imagem do projeto">
+							<div class="position-absolute fixed-bottom d-flex justify-content-center ver-projeto-holder">
+								<a href="/ecopet" class="card-link btn btn-primary">ver projeto »</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-9">
+						<div class="card-body">
+							<h5 class="card-title">Ecopet</h5>
+							<p class="card-text text-justify mb-2">Este é um site simples de página única de uma empresa fictícia de reciclagem com pontos de coleta espalhados pelo Rio de Janeiro. Este site foi feito com o objetivo de testar a API do Google Maps e algumas habilidades de webdesgin com html, css e javascript puro.</p>
+							<div class="d-flex justify-content-end">
+								<a href="/ecopet" class="card-link text-muted">ver projeto »</a>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</main>
-
+	</main>
 </body>
 </html>
-
-<script>
-	$('a[href^="#"]').on('click', function(event) {
-
-		var target = $(this.getAttribute('href'));
-
-		if( target.length ) {
-			event.preventDefault();
-			$('html, body').stop().animate({
-				scrollTop: (target.offset().top)-58 //SUBTRAIR AQUI A ALTURA DO MENU
-			}, 1000);
-		}
-
-	});
-</script>
